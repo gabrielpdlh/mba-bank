@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    api: 'https://angular-api.xwhost.com.br/api'
+    api: 'https://aula-angular.bcorp.tec.br/api'
 };
