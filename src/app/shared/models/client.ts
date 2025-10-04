@@ -1,9 +1,9 @@
 export interface Client{
-    id: number;
-    name: string;
+   id: number;
+    nome: string;
     cpf: string;
     email: string;
-    password: string;
-    active: boolean;
-    observations: string;
+    senha: string;
+    ativo: boolean;
+    observacoes: string;
 }
