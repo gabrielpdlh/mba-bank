@@ -2,20 +2,42 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Auth } from '../../models/auth';
 import { environment } from '../../../../environments/environment.development';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  api = `${environment.api}/token/`;
 
-  api = `${environment.api}/auth/`
-
-  constructor(private clienteHttp: HttpClient) {}
+  constructor(private clienteHttp: HttpClient, private router: Router) {}
 
   login(data: Auth) {
-    return this.clienteHttp.post(this.api, data)
+    return this.clienteHttp.post(this.api, data).subscribe({
+      next: (response) => {
+        localStorage.setItem('access_token', (response as any).access);
+        localStorage.setItem('refresh_token', (response as any).refresh);
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Login error', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Usuário e/ou senha inválidos!',
+        });
+      },
+    });
   }
 
-  
-  
+  refreshToken(refresh: string) {
+    return this.clienteHttp.post(`${this.api}refresh/`, { refresh });
+  }
+
+  logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    this.router.navigate(['/auth']);
+  }
 }
