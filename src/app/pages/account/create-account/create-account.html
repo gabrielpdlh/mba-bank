@@ -1,0 +1,30 @@
+<div class="example-container">
+  <form (ngSubmit)="add()" [formGroup]="formGroup">
+    <div class="example-form-fields">
+      <mat-form-field>
+        <mat-select formControlName="cliente" required>
+          <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">{{
+            cliente.nome
+          }}</mat-option>
+        </mat-select>
+        <mat-label>Cliente</mat-label>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Numero</mat-label>
+        <input formControlName="numero" matInput placeholder="Numero da conta" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Agencia</mat-label>
+        <input formControlName="agencia" matInput placeholder="Agencia da conta" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Saldo</mat-label>
+        <input formControlName="saldo" matInput placeholder="Saldo da conta" />
+      </mat-form-field>
+    </div>
+    <button type="submit">Criar Conta</button>
+  </form>
+</div>

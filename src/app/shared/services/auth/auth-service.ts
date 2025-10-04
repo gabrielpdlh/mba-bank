@@ -40,4 +40,11 @@ export class AuthService {
     localStorage.removeItem('refresh_token');
     this.router.navigate(['/auth']);
   }
+
+  getToken(): string | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem('access_token');
+    }
+    return null;
+  }
 }
